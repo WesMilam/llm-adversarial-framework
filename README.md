@@ -48,6 +48,7 @@ streamlit run chain_tool_gui_openai_v2.py
 
 ## 🔐 Environment Setup
 
+This project requires a .env file with your API keys.
 Create a `.env` file in the project root with:
 ```ini
 OPENAI_API_KEY=your_openai_key_here
