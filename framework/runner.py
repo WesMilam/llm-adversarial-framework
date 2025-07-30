@@ -30,8 +30,10 @@ def main():
     for idx, test in enumerate(prompts, 1):
         print(f"\n🧪 Test {idx} - Category: {test['category']}")
         print(f"Prompt: {test['prompt']}")
-        response = run_single_prompt(test['prompt'])
-        print(f"🧠 Model Response:\n{response}\n{'-'*60}")
 
-if __name__ == "__main__":
-    main()
+        response = run_single_prompt(test['prompt'])
+        result = evaluate_response(test['prompt'], response)
+
+        print(f"🧠 Model Response:\n{response}")
+        print(f"✅ Evaluation Result: {result}")
+        print("-" * 60)
