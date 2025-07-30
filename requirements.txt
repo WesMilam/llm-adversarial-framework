@@ -9,3 +9,7 @@ seaborn
 jupyter
 python-dotenv
 google-generativeai
+streamlit
+matplotlib
+pandas
+openai>=1.0
