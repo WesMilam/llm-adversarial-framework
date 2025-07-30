@@ -1,4 +1,5 @@
 import os
+import argparse
 from dotenv import load_dotenv
 from framework.prompt_loader import load_prompts
 from framework.evaluator import evaluate_response
@@ -12,13 +13,9 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Supported models
 SUPPORTED_MODELS = ["openai-gpt-4", "gemini-pro"]
 
 def run_openai(prompt):
-    """
-    Send prompt to OpenAI GPT-4
-    """
     try:
         response = openai.ChatCompletion.create(
             model="gpt-4",
@@ -33,9 +30,6 @@ def run_openai(prompt):
         return f"OpenAI Error: {e}"
 
 def run_gemini(prompt):
-    """
-    Send prompt to Google Gemini
-    """
     try:
         model = genai.GenerativeModel("gemini-pro")
         chat = model.start_chat()
@@ -45,9 +39,6 @@ def run_gemini(prompt):
         return f"Gemini Error: {e}"
 
 def run_model(prompt, model_name):
-    """
-    Dispatch prompt to selected model.
-    """
     if model_name == "openai-gpt-4":
         return run_openai(prompt)
     elif model_name == "gemini-pro":
@@ -56,12 +47,14 @@ def run_model(prompt, model_name):
         raise ValueError(f"Unsupported model: {model_name}")
 
 def main():
-    # CONFIG: Choose model and prompt set
-    model_name = "openai-gpt-4"  # or "gemini-pro"
-    prompt_path = "prompts/prompt_injection.json"
+    # Parse CLI arguments
+    parser = argparse.ArgumentParser(description="LLM Adversarial Testing Framework")
+    parser.add_argument("--model", choices=SUPPORTED_MODELS, required=True, help="Model to use (openai-gpt-4 or gemini-pro)")
+    parser.add_argument("--prompts", default="prompts/prompt_injection.json", help="Path to prompt JSON file")
+    args = parser.parse_args()
 
-    if model_name not in SUPPORTED_MODELS:
-        raise ValueError(f"Model '{model_name}' is not supported.")
+    model_name = args.model
+    prompt_path = args.prompts
 
     prompts = load_prompts(prompt_path)
     timestamp = get_timestamp()
