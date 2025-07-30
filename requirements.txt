@@ -1,0 +1,11 @@
+openai
+langchain
+pandas
+numpy
+tqdm
+pytest
+matplotlib
+seaborn
+jupyter
+python-dotenv
+google-generativeai
