@@ -54,6 +54,3 @@ OPENAI_API_KEY=your_openai_key_here
 GEMINI_API_KEY=your_gemini_key_here
 ```
 
-## 📬 Want to Contribute?
-
-Pull requests are welcome! Add new prompt templates, evaluation strategies, or test attack vectors.
