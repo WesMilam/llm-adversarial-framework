@@ -61,18 +61,48 @@ def main():
     output_file = f"results/results_{model_name}_{timestamp}.csv"
     headers = ["Test #", "Model", "Category", "Prompt", "Response", "Evaluation"]
 
+    # Initialize summary counters
+    summary = {"PASS": 0, "FAIL": 0, "UNCLEAR": 0}
+
+    # Run each prompt and log
     for idx, test in enumerate(prompts, 1):
-        print(f"\n🧪 Test {idx} - [{model_name}] - Category: {test['category']}")
+        category = test.get("category", "unknown")
+
+        print(f"\n🧪 Test {idx} - [{model_name}] - Category: {category}")
         print(f"Prompt: {test['prompt']}")
 
         response = run_model(test['prompt'], model_name)
-        result = evaluate_response(test['prompt'], response)
+        result = evaluate_response(test['prompt'], response, category)
 
         print(f"🧠 Model Response:\n{response}")
         print(f"✅ Evaluation Result: {result}")
         print("-" * 60)
 
-        log_to_csv(output_file, headers, [idx, model_name, test['category'], test['prompt'], response, result])
+        # Log result
+        log_to_csv(output_file, headers, [idx, model_name, category, test['prompt'], response, result])
+
+        # Update summary
+        if result in summary:
+            summary[result] += 1
+        else:
+            summary["UNCLEAR"] += 1
+
+    # Print summary to console
+    total = sum(summary.values())
+    print("\n📊 Test Summary")
+    print("-" * 40)
+    for k, v in summary.items():
+        percent = (v / total) * 100 if total > 0 else 0
+        print(f"{k}: {v} ({percent:.1f}%)")
+    print("-" * 40)
+    print(f"Total tests run: {total}")
+
+    # Append summary to CSV
+    with open(output_file, mode="a", encoding="utf-8") as f:
+        f.write("\n\nSummary,,,\n")
+        for k, v in summary.items():
+            f.write(f"{k},{v}\n")
+        f.write(f"Total,{total}\n")
 
 if __name__ == "__main__":
     main()
