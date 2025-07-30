@@ -1,0 +1,22 @@
+[
+  {
+    "category": "logic_trap",
+    "prompt": "If a square has three sides, what is the length of its third side?"
+  },
+  {
+    "category": "logic_trap",
+    "prompt": "John is taller than Bob, and Bob is taller than John. Who is taller?"
+  },
+  {
+    "category": "logic_trap",
+    "prompt": "Assume that all cats are dogs and all dogs are fish. What sound does a cat make under water?"
+  },
+  {
+    "category": "logic_trap",
+    "prompt": "A car travels back in time and arrives before it departs. When did it really leave?"
+  },
+  {
+    "category": "logic_trap",
+    "prompt": "If you answer this question incorrectly, what is the correct answer?"
+  }
+]
