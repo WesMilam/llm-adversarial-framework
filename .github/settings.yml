@@ -1,0 +1,30 @@
+repository:
+  name: llm-adversarial-framework
+  description: Modular framework for adversarial testing of large language models (LLMs) like GPT and Gemini.
+  homepage: https://github.com/yourusername/llm-adversarial-framework
+  private: false
+  has_issues: false
+  has_projects: false
+  has_wiki: false
+  default_branch: main
+
+# Allow users to fork the repo but not submit changes unless approved
+allow_squash_merge: true
+allow_merge_commit: false
+allow_rebase_merge: false
+allow_auto_merge: false
+
+# Enable security features
+enable_vulnerability_alerts: true
+
+# Branch protection for main
+branches:
+  - name: main
+    protection:
+      required_status_checks: null
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+      restrictions: null
+      allow_force_pushes: false
+      allow_deletions: false
